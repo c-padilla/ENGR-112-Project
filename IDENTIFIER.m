@@ -15,9 +15,8 @@ howMany2 = input('Input quantity type2: '); % small (or HDPE)...
 % STEEL AND HDPE HAVE NOT BEEN IMPLEMENTED YET!
 
 total = howMany1 + howMany2;
-toLoop = total;
 
-for (i = 1: toLoop)    
+while (howMany1 ~= 0 && howMany2 ~= 0)    
     if (mod(i, 2) == 1)    
         if (howMany1 > 0)
             start(motorA);
@@ -37,15 +36,7 @@ for (i = 1: toLoop)
                 motorA.Speed = 20;
             end
             
-            
-        else 
-            toLoop = toLoop + 1;
-            if(toLoop >= 20)
-                break; % if toLoop gets ridiculously large, then we're 
-            end        % obviously done sorting
-            
         end % big
-    
     
     else % mod    
         if (howMany2 > 0)
@@ -65,9 +56,6 @@ for (i = 1: toLoop)
                 pause(4);
                 motorB.Speed = 15;            
             end
-            
-        else
-           toLoop = toLoop + 1;           
         
         end % small
         
