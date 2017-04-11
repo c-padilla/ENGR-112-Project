@@ -6,7 +6,7 @@ motorB = motor(myev3, 'B');
 motorA.Speed = 20;
 ColorSensor1 = colorSensor(myev3, 1);
 ColorSensor2 = colorSensor(myev3, 2);
-motorB.Speed = 15;
+motorB.Speed = 30;
 
 
 color = input('Input color or materials: ', 's'); % lowercase only (red, blue, ..., steel_hdpe)
@@ -16,10 +16,10 @@ howMany2 = input('Input quantity type2: '); % small (or HDPE)...
 
 total = howMany1 + howMany2;
 
-while (howMany1 ~= 0 && howMany2 ~= 0)        
+while (howMany1 ~= 0 || howMany2 ~= 0)        
     if (howMany1 > 0)
         start(motorA);
-        motorB.Speed = -15;
+        motorB.Speed = -30;
         start(motorB);
         
         COLOR = readColorr(myev3, 1, ColorSensor1);
@@ -28,14 +28,14 @@ while (howMany1 ~= 0 && howMany2 ~= 0)
             howMany1 = howMany1 - 1;
             stop(motorA);
             stop(motorB);
-            motorB.Speed = 15;
+            motorB.Speed = 30;
         else
             motorA.Speed = -20;
             pause(2.5);
             stop(motorA);
             stop(motorB);
             motorA.Speed = 20;
-            motorB.Speed = 15;
+            motorB.Speed = 30;
         end
     end % big
     
@@ -46,17 +46,17 @@ while (howMany1 ~= 0 && howMany2 ~= 0)
         
         COLOR = readColorr(myev3, 2, ColorSensor2);
         if (isequal(color, COLOR))
-            pause(2.2);
+            pause(4);
             howMany2 = howMany2 - 1;
             stop(motorA);
             stop(motorB);
             motorA.Speed = 20;
         else
-            motorB.Speed = -15;
+            motorB.Speed = -25;
             pause(4);
             stop(motorA);
             stop(motorB);
-            motorB.Speed = 15;
+            motorB.Speed = 30;
             motorA.Speed = 20;
         end
         
@@ -64,4 +64,4 @@ while (howMany1 ~= 0 && howMany2 ~= 0)
     
 end % while loop
 
-fprintf('Done...\n\n\n\n also fuck you in the butt\n');
+fprintf('\n\nDone...\n\n');
