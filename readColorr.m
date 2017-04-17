@@ -2,22 +2,40 @@ function[COLOR] = readColorr(myev3, port, ColorSensor)
 COLOR = 'black';
 while(true)
     COLOR = readColor(ColorSensor);
-    if (isequal(COLOR, 'red'))
+    colorRGB = readColorRGB(ColorSensor);
+    
+    if(colorRGB(1) < 15 && colorRGB(2) > 20 && colorRGB(2) < 30 && colorRGB(3) < 5)
+        disp(colorRGB);
+        break;
+    
+    elseif (isequal(COLOR, 'red'))
         break;
     elseif (isequal(COLOR, 'blue'))
-        pause(.1);
+        fprintf('it read blue\n');
+        intensity = readLightIntensity(ColorSensor,'reflected');
+        %if (intensity <= ...)
+         %   COLOR = 'steel';
+        %end  
         break;
     elseif (isequal(COLOR, 'white'))
-        pause(.1);
-        COLOR = readColor(ColorSensor);
+        fprintf('it read white\n');
+        pause(.05);
+        intensity = readLightIntensity(ColorSensor,'reflected')
+        if (intensity < 25 && port == 2)
+            COLOR = 'HDPE';
+        end
         break;
     elseif (isequal(COLOR, 'yellow'))
+        fprintf('it read yellow\n');
         break;
     elseif (isequal(COLOR, 'brown'))
+        fprintf('it read brown\n');
+       % if (intensity <= 10)
+        %    COLOR = 'steel';
+        %end
         break;
     elseif (isequal(COLOR, 'green'))
-        pause(.02);
-        COLOR = readColor(ColorSensor);
+        fprintf('it read green\n');
         break;
     end
 end
@@ -29,14 +47,23 @@ if (port == 1)
 else
     size = 'SMALL';
 end
+
+
 if (isequal(COLOR, 'brown'))
     COLOR = 'yellow';
     if(size == 'SMALL')
-        fprintf('This is a %s %s_%s OR a small steel marble\n', size, COLOR, material);
+        fprintf('This is a small yellow glass marble\n', size, COLOR, material);
+
     else
         fprintf('This is a %s %s_%s marble\n', size, COLOR, material);
     end
-else
+% elseif isequal(COLOR, 'blue') && strcmp(size, 'SMALL')
+%        fprintf('This is a small steel marble\n');
+
+elseif (isequal(COLOR, 'HDPE'))
+    fprintf('This is a High-Density Polyethelyne Plasitic Marble');
+
+else        
 fprintf('This is a %s %s_%s marble\n', size, COLOR, material);
 end
 end
