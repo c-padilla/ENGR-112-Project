@@ -1,7 +1,7 @@
-function[array] = readCard(p, myev3)
+function[color, type1, type2] = readCard(p, myev3)
 array=[];
-motorB=motor(myev3,'B');
-ColorSensor=colorSensor(myev3);
+motorB=motor(myev3,'C');
+ColorSensor=colorSensor(myev3, 4);
 
 
 motorB.Speed=-10;
@@ -26,14 +26,19 @@ material_code = flip(material);
 pelletnum=array([4 5 6 7 8]);
 type_code = flip(pelletnum);
 mat='a';
+color = '';
     if isequal(material_code, [0 0 1])
         mat = 'WHITE_GLASS';
+        color = 'white';
     elseif isequal(material_code, [0 1 0])
         mat = 'RED_GLASS';
+        color = 'red';
     elseif isequal(material_code, [0 1 1])
         mat = 'BLUE_GLASS';
+        color = 'blue';
     elseif isequal(material_code, [1 0 0])
         mat = 'STEEL_HDPE';
+        color = 'HDPE';
     end
 
 type1=0; 
@@ -43,7 +48,6 @@ type2=0;
 if isequal(type_code,[0 0 0 0 1])
         type1 = 0;
         type2 = 0;
-
 elseif isequal(type_code,[0 0 0 1 0])
         type1 = 1;
         type2 = 0;
